@@ -30,6 +30,9 @@ class ViewController: UIViewController {
     lazy var convexFilterHeight = setConvexHeight()
     lazy var circularDistortionFilter = setCircularDistortion()
     
+    var width = UIScreen.main.bounds.width
+    var height = UIScreen.main.bounds.height
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,7 +43,44 @@ class ViewController: UIViewController {
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
         sceneView.scene.rootNode.filters = [circularDistortionFilter]
+        view.addSubview(makeCaptureButton())
     }
+    
+    // MARK: UIComponent  + Action생성
+    // uicomponenet 생성 ------------------------------------------
+    func makeCaptureButton() -> UIButton{
+        let button = UIButton()
+        let width : CGFloat = 80
+        let height : CGFloat = 80
+        let xPos = self.width * 0.5 - width/2
+        let yPos = self.height * 0.9 - height/2
+        button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 40
+        button.addTarget(self, action: #selector(onClickCaptureButton(_:)), for: .touchUpInside)
+        
+        let btn = UIButton()
+        btn.frame = CGRect(x: 10, y: 10, width: 60, height: 60)
+        btn.backgroundColor = .white
+        btn.layer.borderWidth = 3
+        btn.layer.cornerRadius = 30
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.addTarget(self, action: #selector(onClickCaptureButton(_:)), for: .touchUpInside)
+        button.addSubview(btn)
+        
+        return button
+    }
+
+    @objc internal func onClickCaptureButton(_ sender: Any) {
+        if sender is UIButton {
+            saveInPhoto(img: sceneView.snapshot())
+            showScreenshotEffect()
+            AudioServicesPlaySystemSound(1108)
+        }
+        
+    }
+    
+    
     
     // MARK: - make Color Filters
     // 칼라필터 생성 ---------------------------------------
@@ -152,7 +192,7 @@ class ViewController: UIViewController {
             snapshotView.topAnchor.constraint(equalTo: view.topAnchor),
             snapshotView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             snapshotView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            snapshotView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            snapshotView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
         // White because it's the brightest color
@@ -184,7 +224,7 @@ class ViewController: UIViewController {
     func setMosaik() -> CIFilter{
         let f = CIFilter(name: "CIPixellate")
         f?.setValuesForKeys([
-        "inputScale": 50.0
+            "inputScale": 50.0
         ])
         return f!
     }
@@ -253,10 +293,10 @@ extension ViewController : ARSCNViewDelegate{
             guard let firstResult = (request.results as? [VNClassificationObservation])?.first else { return }
             DispatchQueue.main.async { [self] in
                 if firstResult.confidence > 0.92 {
-                   
+                    
                 }
             }
-    }])
+        }])
     }
     
 }
