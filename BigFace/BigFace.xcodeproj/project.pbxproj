@@ -16,6 +16,9 @@
 		782134F528BE25B7002ED29A /* CNNEmotions.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 782134F428BE25B7002ED29A /* CNNEmotions.mlmodel */; };
 		782134F828BE25CD002ED29A /* VideoTexturedFace.shader in Resources */ = {isa = PBXBuildFile; fileRef = 782134F628BE25CD002ED29A /* VideoTexturedFace.shader */; };
 		782134F928BE25CD002ED29A /* VideoTexturedFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782134F728BE25CD002ED29A /* VideoTexturedFace.swift */; };
+		782134FB28BE2AAF002ED29A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782134FA28BE2AAF002ED29A /* Utilities.swift */; };
+		782134FD28BE2CBD002ED29A /* TexturedFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782134FC28BE2CBD002ED29A /* TexturedFace.swift */; };
+		782134FF28BE2CD4002ED29A /* VirtualContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782134FE28BE2CD4002ED29A /* VirtualContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		782134F428BE25B7002ED29A /* CNNEmotions.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CNNEmotions.mlmodel; sourceTree = "<group>"; };
 		782134F628BE25CD002ED29A /* VideoTexturedFace.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VideoTexturedFace.shader; sourceTree = "<group>"; };
 		782134F728BE25CD002ED29A /* VideoTexturedFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTexturedFace.swift; sourceTree = "<group>"; };
+		782134FA28BE2AAF002ED29A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		782134FC28BE2CBD002ED29A /* TexturedFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TexturedFace.swift; sourceTree = "<group>"; };
+		782134FE28BE2CD4002ED29A /* VirtualContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +71,12 @@
 				782134E028BDF8DB002ED29A /* AppDelegate.swift */,
 				782134E228BDF8DB002ED29A /* SceneDelegate.swift */,
 				782134E428BDF8DB002ED29A /* ViewController.swift */,
+				782134FA28BE2AAF002ED29A /* Utilities.swift */,
 				782134F428BE25B7002ED29A /* CNNEmotions.mlmodel */,
 				782134F628BE25CD002ED29A /* VideoTexturedFace.shader */,
 				782134F728BE25CD002ED29A /* VideoTexturedFace.swift */,
+				782134FC28BE2CBD002ED29A /* TexturedFace.swift */,
+				782134FE28BE2CD4002ED29A /* VirtualContent.swift */,
 				782134E628BDF8DB002ED29A /* Main.storyboard */,
 				782134E928BDF8DC002ED29A /* Assets.xcassets */,
 				782134EB28BDF8DC002ED29A /* LaunchScreen.storyboard */,
@@ -148,10 +157,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782134FB28BE2AAF002ED29A /* Utilities.swift in Sources */,
+				782134FF28BE2CD4002ED29A /* VirtualContent.swift in Sources */,
 				782134F928BE25CD002ED29A /* VideoTexturedFace.swift in Sources */,
 				782134F528BE25B7002ED29A /* CNNEmotions.mlmodel in Sources */,
 				782134E528BDF8DB002ED29A /* ViewController.swift in Sources */,
 				782134E128BDF8DB002ED29A /* AppDelegate.swift in Sources */,
+				782134FD28BE2CBD002ED29A /* TexturedFace.swift in Sources */,
 				782134E328BDF8DB002ED29A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
