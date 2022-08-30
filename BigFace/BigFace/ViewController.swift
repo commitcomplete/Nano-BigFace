@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     lazy var convexFilterHeight = setConvexHeight()
     lazy var circularDistortionFilter = setCircularDistortion()
     
+    var screenSize = UIScreen.main.bounds.size
     var width = UIScreen.main.bounds.width
     var height = UIScreen.main.bounds.height
     
@@ -42,8 +43,9 @@ class ViewController: UIViewController {
         let ARFace: ARFaceTrackingConfiguration = ARFaceTrackingConfiguration();
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
-        sceneView.scene.rootNode.filters = [circularDistortionFilter]
         view.addSubview(makeCaptureButton())
+        
+        
     }
     
     // MARK: UIComponent  + Action생성
@@ -73,6 +75,7 @@ class ViewController: UIViewController {
 
     @objc internal func onClickCaptureButton(_ sender: Any) {
         if sender is UIButton {
+            
             saveInPhoto(img: sceneView.snapshot())
             showScreenshotEffect()
             AudioServicesPlaySystemSound(1108)
@@ -262,14 +265,14 @@ extension ViewController : ARSCNViewDelegate{
         let material = faceGeometry.firstMaterial!
         material.diffuse.contents = sceneView.scene.background.contents
         material.lightingModel = .constant
-        
+
         guard let shaderURL = Bundle.main.url(forResource: "VideoTexturedFace", withExtension: "shader"),
               let modifier = try? String(contentsOf: shaderURL)
         else { fatalError("Can't load shader modifier from bundle.") }
         faceGeometry.shaderModifiers = [ .geometry: modifier]
         // Pass view-appropriate image transform to the shader modifier so
         // that the mapped video lines up correctly with the background video.
-        let affineTransform = (frame.displayTransform(for: .portrait, viewportSize: sceneView.bounds.size))
+        let affineTransform = (frame.displayTransform(for: .portrait, viewportSize: screenSize))
         let transform = SCNMatrix4(affineTransform)
         faceGeometry.setValue(SCNMatrix4Invert(transform), forKey: "displayTransform")
         let node = SCNNode(geometry: faceGeometry)
