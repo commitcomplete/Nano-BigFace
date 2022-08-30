@@ -15,16 +15,31 @@ class ViewController: UIViewController {
     private let sceneView = ARSCNView(frame: UIScreen.main.bounds)
     //The CoreML model we use for emotion classification.
     private let model = try! VNCoreMLModel(for: CNNEmotions().model)
+    // MARK: filter 생성
+    // 메모리를 위한 필터생성
+    // 색상필터
+    lazy var redFilter = self.filter(color: 1.0)
+    lazy var yellowFilter = self.filter(color: 0.1)
+    lazy var greenFilter = self.filter(color: 0.2)
+    lazy var blueFilter = self.filter(color: 0.5)
+    lazy var purpleFilter = self.filter(color: 0.9)
+    // 특이 필터
+    lazy var mosaikFilter = setMosaik()
+    lazy var crystalFilter = setCrystal()
+    lazy var convexFilter = setConvex()
+    lazy var convexFilterHeight = setConvexHeight()
+    lazy var circularDistortionFilter = setCircularDistortion()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        guard ARWorldTrackingConfiguration.isSupported else { return }
+        guard ARFaceTrackingConfiguration.isSupported else { return }
         view.addSubview(sceneView)
         sceneView.delegate = self
         let ARFace: ARFaceTrackingConfiguration = ARFaceTrackingConfiguration();
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
+        sceneView.scene.rootNode.filters = [circularDistortionFilter]
     }
     
     // MARK: - make Color Filters
@@ -160,6 +175,38 @@ class ViewController: UIViewController {
         let av = UIActivityViewController(activityItems: [img], applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }
+    // MARK: setup 특이 필터
+    func setCrystal() -> CIFilter{
+        let f = CIFilter.crystallize()
+        f.radius = 50
+        return f
+    }
+    func setMosaik() -> CIFilter{
+        let f = CIFilter(name: "CIPixellate")
+        f?.setValuesForKeys([
+        "inputScale": 50.0
+        ])
+        return f!
+    }
+    func setConvex() -> CIFilter{
+        let f = CIFilter.bumpDistortion()
+        f.radius = 1300.0
+        f.center = CGPoint(x: 500, y: 1000)
+        return f
+    }
+    func setConvexHeight() -> CIFilter{
+        let f = CIFilter.bumpDistortionLinear()
+        f.radius = 1300.0
+        f.center = CGPoint(x: 500, y: 1000)
+        return f
+    }
+    
+    func setCircularDistortion() -> CIFilter{
+        let f = CIFilter.pinchDistortion()
+        f.radius = 300
+        f.center = CGPoint(x: 500, y: 1000)
+        return f
+    }
 }
 
 // MARK: BigFace 생성
@@ -206,7 +253,7 @@ extension ViewController : ARSCNViewDelegate{
             guard let firstResult = (request.results as? [VNClassificationObservation])?.first else { return }
             DispatchQueue.main.async { [self] in
                 if firstResult.confidence > 0.92 {
-                    print(123432)
+                   
                 }
             }
     }])
