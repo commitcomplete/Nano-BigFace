@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     lazy var blueFilter = self.filter(color: 0.5)
     lazy var purpleFilter = self.filter(color: 0.9)
     // 특이 필터
-    lazy var mosaikFilter = setMosaik()
+    lazy var mosaicFilter = setMosaic()
     lazy var crystalFilter = setCrystal()
     lazy var convexFilter = setConvex()
     lazy var convexFilterHeight = setConvexHeight()
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     lazy var purpleFilterButton = makeColorFilterButton(color: .purple)
     lazy var noColorFilterButton = makeColorFilterButton(color: .clear)
     
-    lazy var mosaikFilterButton = makeDistortFilterButton(name: "Mosaik")
+    lazy var mosaicFilterButton = makeDistortFilterButton(name: "Mosaic")
     lazy var crystalFilterButton = makeDistortFilterButton(name: "Crystal")
     lazy var convex1FilterButton = makeDistortFilterButton(name: "Convex1")
     lazy var convex2FilterButton = makeDistortFilterButton(name: "Convex2")
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
         view.addSubview(makeCaptureButton())
-        view.addSubview(mosaikFilterButton)
+        view.addSubview(mosaicFilterButton)
         view.addSubview(crystalFilterButton)
         view.addSubview(convex1FilterButton)
         view.addSubview(convex2FilterButton)
@@ -185,8 +185,8 @@ class ViewController: UIViewController {
                 UIView.animate(withDuration: 0.4, animations: {
                     self.noDistortFilterButton.layer.opacity = 1.0
                 self.noDistortFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 30 - 50)
-                self.mosaikFilterButton.layer.opacity =  1.0
-                self.mosaikFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 110)
+                self.mosaicFilterButton.layer.opacity =  1.0
+                self.mosaicFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 110)
                 self.crystalFilterButton.layer.opacity =  1.0
                 self.crystalFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 170)
                 self.convex1FilterButton.layer.opacity =  1.0
@@ -255,8 +255,8 @@ class ViewController: UIViewController {
             
             }else{
                 var distortFilter = CIFilter()
-                if currentDistortFilter == "Mosaik"{
-                    distortFilter = mosaikFilter
+                if currentDistortFilter == "Mosaic"{
+                    distortFilter = mosaicFilter
                 }
                 else if currentDistortFilter == "Crystal"{
                     distortFilter = crystalFilter
@@ -319,8 +319,8 @@ class ViewController: UIViewController {
     @objc internal func onClickDistortFilterButton(_ sender: Any) {
         if let button = sender as? UIButton {
             if currentColorFilter == UIColor.clear{
-            if button.title(for: .normal) == "Mosaik" {
-                sceneView.scene.rootNode.filters = [mosaikFilter]
+            if button.title(for: .normal) == "Mosaic" {
+                sceneView.scene.rootNode.filters = [mosaicFilter]
                 
             }
             else if button.title(for: .normal) == "Crystal"{
@@ -366,8 +366,8 @@ class ViewController: UIViewController {
                     colorFilter = purpleFilter
                 }
                 
-                if button.title(for: .normal) == "Mosaik" {
-                    sceneView.scene.rootNode.filters = [colorFilter, mosaikFilter]
+                if button.title(for: .normal) == "Mosaic" {
+                    sceneView.scene.rootNode.filters = [colorFilter, mosaicFilter]
                     
                 }
                 else if button.title(for: .normal) == "Crystal"{
@@ -420,8 +420,8 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 0.4, animations: {
             self.noDistortFilterButton.layer.opacity = 0.0
             self.noDistortFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 25)
-            self.mosaikFilterButton.layer.opacity = 0.0
-            self.mosaikFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 25)
+            self.mosaicFilterButton.layer.opacity = 0.0
+            self.mosaicFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 25)
             self.crystalFilterButton.layer.opacity = 0.0
             self.crystalFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
             self.convex1FilterButton.layer.opacity = 0.0
@@ -575,7 +575,7 @@ class ViewController: UIViewController {
         f.radius = 50
         return f
     }
-    func setMosaik() -> CIFilter{
+    func setMosaic() -> CIFilter{
         let f = CIFilter(name: "CIPixellate")
         f?.setValuesForKeys([
             "inputScale": 50.0
