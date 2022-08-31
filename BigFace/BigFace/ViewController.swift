@@ -39,7 +39,14 @@ class ViewController: UIViewController {
     lazy var greenFilterButton = makeColorFilterButton(color: .green)
     lazy var blueFilterButton = makeColorFilterButton(color: .blue)
     lazy var purpleFilterButton = makeColorFilterButton(color: .purple)
-    lazy var noFilterButton = makeColorFilterButton(color: .clear)
+    lazy var noColorFilterButton = makeColorFilterButton(color: .clear)
+    
+    lazy var mosaikFilterButton = makeDistortFilterButton(name: "Mosaik")
+    lazy var crystalFilterButton = makeDistortFilterButton(name: "Crystal")
+    lazy var convex1FilterButton = makeDistortFilterButton(name: "Convex1")
+    lazy var convex2FilterButton = makeDistortFilterButton(name: "Convex2")
+    lazy var circleFilterButton = makeDistortFilterButton(name: "Circle")
+    lazy var noDistortFilterButton = makeDistortFilterButton(name: "None")
     
     var screenSize = UIScreen.main.bounds.size
     var width = UIScreen.main.bounds.width
@@ -62,13 +69,19 @@ class ViewController: UIViewController {
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
         sceneView.showsStatistics = true
         view.addSubview(makeCaptureButton())
+        view.addSubview(mosaikFilterButton)
+        view.addSubview(crystalFilterButton)
+        view.addSubview(convex1FilterButton)
+        view.addSubview(convex2FilterButton)
+        view.addSubview(circleFilterButton)
+        view.addSubview(noDistortFilterButton)
         view.addSubview(DistortFilterSelectButton)
         view.addSubview(redFilterButton)
         view.addSubview(yellowFilterButton)
         view.addSubview(greenFilterButton)
         view.addSubview(blueFilterButton)
         view.addSubview(purpleFilterButton)
-        view.addSubview(noFilterButton)
+        view.addSubview(noColorFilterButton)
         view.addSubview(colorFilterSelectButton)
     }
     
@@ -127,8 +140,8 @@ class ViewController: UIViewController {
         if sender is UIButton {
             if !isColorSelectOpen {
                 UIView.animate(withDuration: 0.4, animations: {
-                    self.noFilterButton.layer.opacity = 0.6
-                    self.noFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 30 - 50)
+                    self.noColorFilterButton.layer.opacity = 0.6
+                    self.noColorFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 30 - 50)
                     self.redFilterButton.layer.opacity = 0.6
                     self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 110)
                     self.yellowFilterButton.layer.opacity = 0.6
@@ -159,10 +172,42 @@ class ViewController: UIViewController {
         let yPos = self.height * 0.9 - height/2
         button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 30
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.white.cgColor
+        button.setTitle("NONE", for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(onClickDistortFilterSelectButton(_:)), for: .touchUpInside)
+//        button.layer.cornerRadius = 30
+//        button.layer.borderWidth = 2
+//        button.layer.borderColor = UIColor.white.cgColor
         return button
+    }
+    
+    @objc internal func onClickDistortFilterSelectButton(_ sender: Any) {
+        if sender is UIButton {
+            if !isDistortSelectOpen{
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.noDistortFilterButton.layer.opacity = 1.0
+                self.noDistortFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 30 - 50)
+                self.mosaikFilterButton.layer.opacity =  1.0
+                self.mosaikFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 110)
+                self.crystalFilterButton.layer.opacity =  1.0
+                self.crystalFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 170)
+                self.convex1FilterButton.layer.opacity =  1.0
+                self.convex1FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 230)
+                self.convex2FilterButton.layer.opacity =  1.0
+                self.convex2FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 290)
+                self.circleFilterButton.layer.opacity =  1.0
+                self.circleFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 350)
+                }){ _ in
+                    
+                    self.isDistortSelectOpen = true
+                }
+                               
+            }
+            else{
+                closeDistortFilters()
+            }
+        }
+        
     }
     
     func makeColorFilterButton(color: UIColor)->UIButton{
@@ -187,36 +232,42 @@ class ViewController: UIViewController {
     @objc internal func onClickColorFilterButton(_ sender: Any) {
         if let button = sender as? UIButton {
             if button.backgroundColor == .red{
+                saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [redFilter]
                 colorFilterSelectButton.backgroundColor = .red
                 currentColorFilter = .red
                 closeColorFilters()
             }
             else if button.backgroundColor == .yellow{
+                saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [yellowFilter]
                 colorFilterSelectButton.backgroundColor = .yellow
                 currentColorFilter = .yellow
                 closeColorFilters()
             }
             else if button.backgroundColor == .green{
+                saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [greenFilter]
                 colorFilterSelectButton.backgroundColor = .green
                 currentColorFilter = .green
                 closeColorFilters()
             }
             else if button.backgroundColor == .blue{
+                saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [blueFilter]
                 colorFilterSelectButton.backgroundColor = .blue
                 currentColorFilter = .blue
                 closeColorFilters()
             }
             else if button.backgroundColor == .purple{
+                saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [purpleFilter]
                 colorFilterSelectButton.backgroundColor = .purple
                 currentColorFilter = .purple
                 closeColorFilters()
             }
             else if button.backgroundColor == .clear{
+                saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = []
                 colorFilterSelectButton.backgroundColor = .clear
                 currentColorFilter = .clear
@@ -227,11 +278,76 @@ class ViewController: UIViewController {
         }
     }
     
+    func makeDistortFilterButton(name: String)->UIButton{
+        let button = UIButton()
+        let width : CGFloat = 100
+        let height : CGFloat = 50
+        let xPos = self.width * 0.8 - width/2
+        let yPos = self.height * 0.9 - height/2
+        button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        button.tintColor = .white
+        button.setTitle(name, for: .normal)
+        button.layer.cornerRadius = 25
+        button.layer.opacity = 0
+        button.addTarget(self, action: #selector(onClickDistortFilterButton(_:)), for: .touchUpInside)
+        
+        return button
+        
+    }
+    
+    @objc internal func onClickDistortFilterButton(_ sender: Any) {
+        if let button = sender as? UIButton {
+            if button.backgroundColor == .red{
+                saveInPhoto(img: sceneView.snapshot())
+                sceneView.scene.rootNode.filters = [redFilter]
+                colorFilterSelectButton.backgroundColor = .red
+                currentColorFilter = .red
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .yellow{
+                saveInPhoto(img: sceneView.snapshot())
+                sceneView.scene.rootNode.filters = [yellowFilter]
+                colorFilterSelectButton.backgroundColor = .yellow
+                currentColorFilter = .yellow
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .green{
+                saveInPhoto(img: sceneView.snapshot())
+                sceneView.scene.rootNode.filters = [greenFilter]
+                colorFilterSelectButton.backgroundColor = .green
+                currentColorFilter = .green
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .blue{
+                saveInPhoto(img: sceneView.snapshot())
+                sceneView.scene.rootNode.filters = [blueFilter]
+                colorFilterSelectButton.backgroundColor = .blue
+                currentColorFilter = .blue
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .purple{
+                saveInPhoto(img: sceneView.snapshot())
+                sceneView.scene.rootNode.filters = [purpleFilter]
+                colorFilterSelectButton.backgroundColor = .purple
+                currentColorFilter = .purple
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .clear{
+                saveInPhoto(img: sceneView.snapshot())
+                sceneView.scene.rootNode.filters = []
+                colorFilterSelectButton.backgroundColor = .clear
+                currentColorFilter = .clear
+                closeColorFilters()
+            }
+            
+            
+        }
+    }
     
     func closeColorFilters(){
         UIView.animate(withDuration: 0.4, animations: {
-            self.noFilterButton.layer.opacity = 0.0
-            self.noFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
+            self.noColorFilterButton.layer.opacity = 0.0
+            self.noColorFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
             self.redFilterButton.layer.opacity = 0.0
             self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
             self.yellowFilterButton.layer.opacity = 0.0
@@ -245,6 +361,26 @@ class ViewController: UIViewController {
         }) { _ in
             // Once animation completed, remove it from view.
             self.isColorSelectOpen = false
+        }
+    }
+    
+    func closeDistortFilters(){
+        UIView.animate(withDuration: 0.4, animations: {
+            self.noDistortFilterButton.layer.opacity = 0.0
+            self.noDistortFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 25)
+            self.mosaikFilterButton.layer.opacity = 0.0
+            self.mosaikFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 25)
+            self.crystalFilterButton.layer.opacity = 0.0
+            self.crystalFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
+            self.convex1FilterButton.layer.opacity = 0.0
+            self.convex1FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
+            self.convex2FilterButton.layer.opacity = 0.0
+            self.convex2FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
+            self.circleFilterButton.layer.opacity = 0.0
+            self.circleFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
+        }) { _ in
+            // Once animation completed, remove it from view.
+            self.isDistortSelectOpen = false
         }
     }
     
