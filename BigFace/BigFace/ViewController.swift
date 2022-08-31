@@ -29,10 +29,22 @@ class ViewController: UIViewController {
     lazy var convexFilter = setConvex()
     lazy var convexFilterHeight = setConvexHeight()
     lazy var circularDistortionFilter = setCircularDistortion()
+    // MARK: button 생성
+    // 칼라버튼
+    lazy var colorFilterSelectButton = makeColorFilterSelectButton()
+    lazy var DistortFilterSelectButton = makeDistortFilterSelectButton()
+    
+    lazy var redFilterButton = makeColorFilterButton(color: .red)
+    lazy var yellowFilterButton = makeColorFilterButton(color: .yellow)
+    lazy var greenFilterButton = makeColorFilterButton(color: .green)
+    lazy var blueFilterButton = makeColorFilterButton(color: .blue)
+    lazy var purpleFilterButton = makeColorFilterButton(color: .purple)
     
     var screenSize = UIScreen.main.bounds.size
     var width = UIScreen.main.bounds.width
     var height = UIScreen.main.bounds.height
+    
+    var isColorSelectOpen = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +56,13 @@ class ViewController: UIViewController {
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
         view.addSubview(makeCaptureButton())
-        
-        
+        view.addSubview(colorFilterSelectButton)
+        view.addSubview(DistortFilterSelectButton)
+        view.addSubview(redFilterButton)
+        view.addSubview(yellowFilterButton)
+        view.addSubview(greenFilterButton)
+        view.addSubview(blueFilterButton)
+        view.addSubview(purpleFilterButton)
     }
     
     // MARK: UIComponent  + Action생성
@@ -82,6 +99,94 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    // make color button
+    func makeColorFilterSelectButton() -> UIButton{
+        let button = UIButton()
+        let width : CGFloat = 60
+        let height : CGFloat = 60
+        let xPos = self.width * 0.2 - width/2
+        let yPos = self.height * 0.9 - height/2
+        button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        button.backgroundColor = .clear
+        button.layer.cornerRadius = 30
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
+        button.addTarget(self, action: #selector(onClickColorFilterSelectButton(_:)), for: .touchUpInside)
+        return button
+    }
+    
+    @objc internal func onClickColorFilterSelectButton(_ sender: Any) {
+        if sender is UIButton {
+            if !isColorSelectOpen {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.redFilterButton.layer.opacity = 0.6
+                    self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 30 - 50)
+                    self.yellowFilterButton.layer.opacity = 0.6
+                    self.yellowFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 110)
+                    self.greenFilterButton.layer.opacity = 0.6
+                    self.greenFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 170)
+                    self.blueFilterButton.layer.opacity = 0.6
+                    self.blueFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 230)
+                    self.purpleFilterButton.layer.opacity = 0.6
+                    self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 290)
+                }) { _ in
+                    // Once animation completed, remove it from view.
+                    self.isColorSelectOpen = true
+                }
+            }
+            else {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.redFilterButton.layer.opacity = 0.0
+                    self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
+                    self.yellowFilterButton.layer.opacity = 0.0
+                    self.yellowFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+                    self.greenFilterButton.layer.opacity = 0.0
+                    self.greenFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+                    self.blueFilterButton.layer.opacity = 0.0
+                    self.blueFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+                    self.purpleFilterButton.layer.opacity = 0.0
+                    self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+                }) { _ in
+                    // Once animation completed, remove it from view.
+                    self.isColorSelectOpen = false
+                }
+            }
+           
+        }
+        
+    }
+    func makeDistortFilterSelectButton() -> UIButton{
+        let button = UIButton()
+        let width : CGFloat = 60
+        let height : CGFloat = 60
+        let xPos = self.width * 0.8 - width/2
+        let yPos = self.height * 0.9 - height/2
+        button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        button.backgroundColor = .clear
+        button.layer.cornerRadius = 30
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
+        return button
+    }
+    
+    func makeColorFilterButton(color: UIColor)->UIButton{
+        let button = UIButton()
+        let width : CGFloat = 50
+        let height : CGFloat = 50
+        let xPos = self.width * 0.2 - width/2
+        let yPos = self.height * 0.9 - height/2
+        button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
+        button.backgroundColor = color
+        button.layer.cornerRadius = 25
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.opacity = 0
+        return button
+        
+    }
+    
+    
     
     
     
