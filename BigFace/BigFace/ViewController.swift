@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     // MARK: button 생성
     // 칼라버튼
     lazy var colorFilterSelectButton = makeColorFilterSelectButton()
-    lazy var DistortFilterSelectButton = makeDistortFilterSelectButton()
+    lazy var distortFilterSelectButton = makeDistortFilterSelectButton()
     
     lazy var redFilterButton = makeColorFilterButton(color: .red)
     lazy var yellowFilterButton = makeColorFilterButton(color: .yellow)
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     var currentColorFilter : UIColor = .clear
     
     var isDistortSelectOpen = false
-    var currentDistortFilter = 0
+    var currentDistortFilter = "None"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         view.addSubview(convex2FilterButton)
         view.addSubview(circleFilterButton)
         view.addSubview(noDistortFilterButton)
-        view.addSubview(DistortFilterSelectButton)
+        view.addSubview(distortFilterSelectButton)
         view.addSubview(redFilterButton)
         view.addSubview(yellowFilterButton)
         view.addSubview(greenFilterButton)
@@ -166,13 +166,13 @@ class ViewController: UIViewController {
     }
     func makeDistortFilterSelectButton() -> UIButton{
         let button = UIButton()
-        let width : CGFloat = 60
+        let width : CGFloat = 100
         let height : CGFloat = 60
         let xPos = self.width * 0.8 - width/2
         let yPos = self.height * 0.9 - height/2
         button.frame = CGRect(x: xPos, y: yPos, width: width, height: height)
         button.backgroundColor = .clear
-        button.setTitle("NONE", for: .normal)
+        button.setTitle("None", for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(onClickDistortFilterSelectButton(_:)), for: .touchUpInside)
 //        button.layer.cornerRadius = 30
@@ -231,49 +231,75 @@ class ViewController: UIViewController {
     
     @objc internal func onClickColorFilterButton(_ sender: Any) {
         if let button = sender as? UIButton {
+            
+            if currentDistortFilter == "None"{
+            
             if button.backgroundColor == .red{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [redFilter]
-                colorFilterSelectButton.backgroundColor = .red
-                currentColorFilter = .red
-                closeColorFilters()
             }
             else if button.backgroundColor == .yellow{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [yellowFilter]
-                colorFilterSelectButton.backgroundColor = .yellow
-                currentColorFilter = .yellow
-                closeColorFilters()
             }
             else if button.backgroundColor == .green{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [greenFilter]
-                colorFilterSelectButton.backgroundColor = .green
-                currentColorFilter = .green
-                closeColorFilters()
             }
             else if button.backgroundColor == .blue{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [blueFilter]
-                colorFilterSelectButton.backgroundColor = .blue
-                currentColorFilter = .blue
-                closeColorFilters()
             }
             else if button.backgroundColor == .purple{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [purpleFilter]
-                colorFilterSelectButton.backgroundColor = .purple
-                currentColorFilter = .purple
-                closeColorFilters()
             }
             else if button.backgroundColor == .clear{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = []
-                colorFilterSelectButton.backgroundColor = .clear
-                currentColorFilter = .clear
-                closeColorFilters()
             }
+            colorFilterSelectButton.backgroundColor = button.backgroundColor
+            currentColorFilter = button.backgroundColor!
+            closeColorFilters()
             
+            }else{
+                let distortFilter = CIFilter()
+                if currentDistortFilter == "Mosaik"{
+                    
+                }
+                
+                
+                
+                if button.backgroundColor == .red{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [redFilter]
+                }
+                else if button.backgroundColor == .yellow{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [yellowFilter]
+                }
+                else if button.backgroundColor == .green{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [greenFilter]
+                }
+                else if button.backgroundColor == .blue{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [blueFilter]
+                }
+                else if button.backgroundColor == .purple{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [purpleFilter]
+                }
+                else if button.backgroundColor == .clear{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = []
+                }
+                colorFilterSelectButton.backgroundColor = button.backgroundColor
+                currentColorFilter = button.backgroundColor!
+                closeColorFilters()
+                
+                
+            }
             
         }
     }
@@ -297,49 +323,39 @@ class ViewController: UIViewController {
     
     @objc internal func onClickDistortFilterButton(_ sender: Any) {
         if let button = sender as? UIButton {
-            if button.backgroundColor == .red{
+            if button.title(for: .normal) == "Mosaik" {
                 saveInPhoto(img: sceneView.snapshot())
-                sceneView.scene.rootNode.filters = [redFilter]
-                colorFilterSelectButton.backgroundColor = .red
-                currentColorFilter = .red
-                closeColorFilters()
+                sceneView.scene.rootNode.filters = [mosaikFilter]
+                
             }
-            else if button.backgroundColor == .yellow{
+            else if button.title(for: .normal) == "Crystal"{
                 saveInPhoto(img: sceneView.snapshot())
-                sceneView.scene.rootNode.filters = [yellowFilter]
-                colorFilterSelectButton.backgroundColor = .yellow
-                currentColorFilter = .yellow
-                closeColorFilters()
+                sceneView.scene.rootNode.filters = [crystalFilter]
+                
             }
-            else if button.backgroundColor == .green{
+            else if button.title(for: .normal) == "Convex1"{
                 saveInPhoto(img: sceneView.snapshot())
-                sceneView.scene.rootNode.filters = [greenFilter]
-                colorFilterSelectButton.backgroundColor = .green
-                currentColorFilter = .green
-                closeColorFilters()
+                sceneView.scene.rootNode.filters = [convexFilter]
+                
             }
-            else if button.backgroundColor == .blue{
+            else if button.title(for: .normal) == "Convex2"{
                 saveInPhoto(img: sceneView.snapshot())
-                sceneView.scene.rootNode.filters = [blueFilter]
-                colorFilterSelectButton.backgroundColor = .blue
-                currentColorFilter = .blue
-                closeColorFilters()
+                sceneView.scene.rootNode.filters = [convexFilterHeight]
+                
             }
-            else if button.backgroundColor == .purple{
+            else if button.title(for: .normal) == "Circle"{
                 saveInPhoto(img: sceneView.snapshot())
-                sceneView.scene.rootNode.filters = [purpleFilter]
-                colorFilterSelectButton.backgroundColor = .purple
-                currentColorFilter = .purple
-                closeColorFilters()
+                sceneView.scene.rootNode.filters = [circularDistortionFilter]
+                
             }
-            else if button.backgroundColor == .clear{
+            else if button.title(for: .normal) == "None"{
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = []
-                colorFilterSelectButton.backgroundColor = .clear
-                currentColorFilter = .clear
-                closeColorFilters()
+                
             }
-            
+            distortFilterSelectButton.setTitle(button.title(for: .normal)!, for: .normal)
+            currentDistortFilter = button.title(for: .normal)!
+            closeDistortFilters()
             
         }
     }
