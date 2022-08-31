@@ -39,12 +39,17 @@ class ViewController: UIViewController {
     lazy var greenFilterButton = makeColorFilterButton(color: .green)
     lazy var blueFilterButton = makeColorFilterButton(color: .blue)
     lazy var purpleFilterButton = makeColorFilterButton(color: .purple)
+    lazy var noFilterButton = makeColorFilterButton(color: .clear)
     
     var screenSize = UIScreen.main.bounds.size
     var width = UIScreen.main.bounds.width
     var height = UIScreen.main.bounds.height
-    
+    // 칼라필터 선택창이 열렸는지 확인
     var isColorSelectOpen = false
+    var currentColorFilter : UIColor = .clear
+    
+    var isDistortSelectOpen = false
+    var currentDistortFilter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,14 +60,16 @@ class ViewController: UIViewController {
         let ARFace: ARFaceTrackingConfiguration = ARFaceTrackingConfiguration();
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
+        sceneView.showsStatistics = true
         view.addSubview(makeCaptureButton())
-        view.addSubview(colorFilterSelectButton)
         view.addSubview(DistortFilterSelectButton)
         view.addSubview(redFilterButton)
         view.addSubview(yellowFilterButton)
         view.addSubview(greenFilterButton)
         view.addSubview(blueFilterButton)
         view.addSubview(purpleFilterButton)
+        view.addSubview(noFilterButton)
+        view.addSubview(colorFilterSelectButton)
     }
     
     // MARK: UIComponent  + Action생성
@@ -89,7 +96,7 @@ class ViewController: UIViewController {
         
         return button
     }
-
+    
     @objc internal func onClickCaptureButton(_ sender: Any) {
         if sender is UIButton {
             
@@ -119,40 +126,28 @@ class ViewController: UIViewController {
     @objc internal func onClickColorFilterSelectButton(_ sender: Any) {
         if sender is UIButton {
             if !isColorSelectOpen {
-                UIView.animate(withDuration: 0.5, animations: {
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.noFilterButton.layer.opacity = 0.6
+                    self.noFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 30 - 50)
                     self.redFilterButton.layer.opacity = 0.6
-                    self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 30 - 50)
+                    self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 110)
                     self.yellowFilterButton.layer.opacity = 0.6
-                    self.yellowFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 110)
+                    self.yellowFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 170)
                     self.greenFilterButton.layer.opacity = 0.6
-                    self.greenFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 170)
+                    self.greenFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 230)
                     self.blueFilterButton.layer.opacity = 0.6
-                    self.blueFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 230)
+                    self.blueFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 290)
                     self.purpleFilterButton.layer.opacity = 0.6
-                    self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 290)
+                    self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 350)
                 }) { _ in
-                    // Once animation completed, remove it from view.
+                  
                     self.isColorSelectOpen = true
                 }
             }
             else {
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.redFilterButton.layer.opacity = 0.0
-                    self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
-                    self.yellowFilterButton.layer.opacity = 0.0
-                    self.yellowFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
-                    self.greenFilterButton.layer.opacity = 0.0
-                    self.greenFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
-                    self.blueFilterButton.layer.opacity = 0.0
-                    self.blueFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
-                    self.purpleFilterButton.layer.opacity = 0.0
-                    self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
-                }) { _ in
-                    // Once animation completed, remove it from view.
-                    self.isColorSelectOpen = false
-                }
+                closeColorFilters()
             }
-           
+            
         }
         
     }
@@ -182,13 +177,76 @@ class ViewController: UIViewController {
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.opacity = 0
+        
+        button.addTarget(self, action: #selector(onClickColorFilterButton(_:)), for: .touchUpInside)
+        
         return button
         
     }
     
+    @objc internal func onClickColorFilterButton(_ sender: Any) {
+        if let button = sender as? UIButton {
+            if button.backgroundColor == .red{
+                sceneView.scene.rootNode.filters = [redFilter]
+                colorFilterSelectButton.backgroundColor = .red
+                currentColorFilter = .red
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .yellow{
+                sceneView.scene.rootNode.filters = [yellowFilter]
+                colorFilterSelectButton.backgroundColor = .yellow
+                currentColorFilter = .yellow
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .green{
+                sceneView.scene.rootNode.filters = [greenFilter]
+                colorFilterSelectButton.backgroundColor = .green
+                currentColorFilter = .green
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .blue{
+                sceneView.scene.rootNode.filters = [blueFilter]
+                colorFilterSelectButton.backgroundColor = .blue
+                currentColorFilter = .blue
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .purple{
+                sceneView.scene.rootNode.filters = [purpleFilter]
+                colorFilterSelectButton.backgroundColor = .purple
+                currentColorFilter = .purple
+                closeColorFilters()
+            }
+            else if button.backgroundColor == .clear{
+                sceneView.scene.rootNode.filters = []
+                colorFilterSelectButton.backgroundColor = .clear
+                currentColorFilter = .clear
+                closeColorFilters()
+            }
+            
+            
+        }
+    }
     
     
-    
+    func closeColorFilters(){
+        UIView.animate(withDuration: 0.4, animations: {
+            self.noFilterButton.layer.opacity = 0.0
+            self.noFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
+            self.redFilterButton.layer.opacity = 0.0
+            self.redFilterButton.layer.position = CGPoint(x: self.width * 0.2 , y: self.height * 0.9 - 25)
+            self.yellowFilterButton.layer.opacity = 0.0
+            self.yellowFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+            self.greenFilterButton.layer.opacity = 0.0
+            self.greenFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+            self.blueFilterButton.layer.opacity = 0.0
+            self.blueFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+            self.purpleFilterButton.layer.opacity = 0.0
+            self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
+        }) { _ in
+            // Once animation completed, remove it from view.
+            self.isColorSelectOpen = false
+        }
+    }
     
     // MARK: - make Color Filters
     // 칼라필터 생성 ---------------------------------------
@@ -370,7 +428,7 @@ extension ViewController : ARSCNViewDelegate{
         let material = faceGeometry.firstMaterial!
         material.diffuse.contents = sceneView.scene.background.contents
         material.lightingModel = .constant
-
+        
         guard let shaderURL = Bundle.main.url(forResource: "VideoTexturedFace", withExtension: "shader"),
               let modifier = try? String(contentsOf: shaderURL)
         else { fatalError("Can't load shader modifier from bundle.") }
