@@ -263,36 +263,46 @@ class ViewController: UIViewController {
             closeColorFilters()
             
             }else{
-                let distortFilter = CIFilter()
+                var distortFilter = CIFilter()
                 if currentDistortFilter == "Mosaik"{
-                    
+                    distortFilter = mosaikFilter
                 }
-                
-                
+                else if currentDistortFilter == "Crystal"{
+                    distortFilter = crystalFilter
+                }
+                else if currentDistortFilter == "Convex1"{
+                    distortFilter = convexFilter
+                }
+                else if currentDistortFilter == "Convex2"{
+                    distortFilter = convexFilterHeight
+                }
+                else if currentDistortFilter == "Circle"{
+                    distortFilter = circularDistortionFilter
+                }
                 
                 if button.backgroundColor == .red{
                     saveInPhoto(img: sceneView.snapshot())
-                    sceneView.scene.rootNode.filters = [redFilter]
+                    sceneView.scene.rootNode.filters = [redFilter,distortFilter]
                 }
                 else if button.backgroundColor == .yellow{
                     saveInPhoto(img: sceneView.snapshot())
-                    sceneView.scene.rootNode.filters = [yellowFilter]
+                    sceneView.scene.rootNode.filters = [yellowFilter,distortFilter]
                 }
                 else if button.backgroundColor == .green{
                     saveInPhoto(img: sceneView.snapshot())
-                    sceneView.scene.rootNode.filters = [greenFilter]
+                    sceneView.scene.rootNode.filters = [greenFilter,distortFilter]
                 }
                 else if button.backgroundColor == .blue{
                     saveInPhoto(img: sceneView.snapshot())
-                    sceneView.scene.rootNode.filters = [blueFilter]
+                    sceneView.scene.rootNode.filters = [blueFilter,distortFilter]
                 }
                 else if button.backgroundColor == .purple{
                     saveInPhoto(img: sceneView.snapshot())
-                    sceneView.scene.rootNode.filters = [purpleFilter]
+                    sceneView.scene.rootNode.filters = [purpleFilter,distortFilter]
                 }
                 else if button.backgroundColor == .clear{
                     saveInPhoto(img: sceneView.snapshot())
-                    sceneView.scene.rootNode.filters = []
+                    sceneView.scene.rootNode.filters = [distortFilter]
                 }
                 colorFilterSelectButton.backgroundColor = button.backgroundColor
                 currentColorFilter = button.backgroundColor!
@@ -323,6 +333,7 @@ class ViewController: UIViewController {
     
     @objc internal func onClickDistortFilterButton(_ sender: Any) {
         if let button = sender as? UIButton {
+            if currentColorFilter == UIColor.clear{
             if button.title(for: .normal) == "Mosaik" {
                 saveInPhoto(img: sceneView.snapshot())
                 sceneView.scene.rootNode.filters = [mosaikFilter]
@@ -357,6 +368,58 @@ class ViewController: UIViewController {
             currentDistortFilter = button.title(for: .normal)!
             closeDistortFilters()
             
+        }
+            else{
+                var colorFilter = CIFilter()
+                if currentColorFilter == UIColor.red{
+                    colorFilter = redFilter
+                }
+                else if currentColorFilter == UIColor.yellow{
+                    colorFilter = yellowFilter
+                }
+                else if currentColorFilter == UIColor.green{
+                    colorFilter = greenFilter
+                }
+                else if currentColorFilter == UIColor.blue{
+                    colorFilter = blueFilter
+                }
+                else if currentColorFilter == UIColor.purple{
+                    colorFilter = purpleFilter
+                }
+                
+                if button.title(for: .normal) == "Mosaik" {
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [colorFilter, mosaikFilter]
+                    
+                }
+                else if button.title(for: .normal) == "Crystal"{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [colorFilter,crystalFilter]
+                    
+                }
+                else if button.title(for: .normal) == "Convex1"{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [colorFilter,convexFilter]
+                    
+                }
+                else if button.title(for: .normal) == "Convex2"{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [colorFilter,convexFilterHeight]
+                    
+                }
+                else if button.title(for: .normal) == "Circle"{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [colorFilter,circularDistortionFilter]
+                    
+                }
+                else if button.title(for: .normal) == "None"{
+                    saveInPhoto(img: sceneView.snapshot())
+                    sceneView.scene.rootNode.filters = [colorFilter]
+                }
+                distortFilterSelectButton.setTitle(button.title(for: .normal)!, for: .normal)
+                currentDistortFilter = button.title(for: .normal)!
+                closeDistortFilters()
+            }
         }
     }
     
