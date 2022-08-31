@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This permission allow you to captur of your BigFace</string>
+	<string>This permission allow you to capture &apos;BigFace&apos;</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This permission allow you to save your BigFace in your phone</string>
+	<string>This permission allow you to save &apos;BigFace&apos; in your phone</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
