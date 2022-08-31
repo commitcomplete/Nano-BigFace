@@ -14,7 +14,7 @@ enum VirtualContentType: Int {
     func makeController() -> VirtualContentController {
         
             return TexturedFace()
-        
+
     }
 }
 

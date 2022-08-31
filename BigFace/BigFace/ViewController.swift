@@ -14,7 +14,8 @@ import AVFoundation
 class ViewController: UIViewController {
     private let sceneView = ARSCNView(frame: UIScreen.main.bounds)
     //The CoreML model we use for emotion classification.
-    private let model = try! VNCoreMLModel(for: CNNEmotions().model)
+    // MARK: emotion detect model deleted
+//    private let model = try! VNCoreMLModel(for: CNNEmotions().model)
     // MARK: filter 생성
     // 메모리를 위한 필터생성
     // 색상필터
@@ -642,15 +643,17 @@ extension ViewController : ARSCNViewDelegate{
         //Updates the face geometry.
         faceGeometry.update(from: faceAnchor.geometry)
         
-        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:]).perform([VNCoreMLRequest(model: model) { [weak self] request, error in
-            //Here we get the first result of the Classification Observation result.
-            guard let firstResult = (request.results as? [VNClassificationObservation])?.first else { return }
-            DispatchQueue.main.async { [self] in
-                if firstResult.confidence > 0.92 {
-                    
-                }
-            }
-        }])
+        
+        // MARK: emotion detection model - model deleted
+//        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:]).perform([VNCoreMLRequest(model: model) { [weak self] request, error in
+//            //Here we get the first result of the Classification Observation result.
+//            guard let firstResult = (request.results as? [VNClassificationObservation])?.first else { return }
+//            DispatchQueue.main.async { [self] in
+//                if firstResult.confidence > 0.92 {
+//
+//                }
+//            }
+//        }])
     }
     
 }
