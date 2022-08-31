@@ -6,6 +6,8 @@
 	<string>This permission allow you to capture &apos;BigFace&apos;</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This permission allow you to save &apos;BigFace&apos; in your phone</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
