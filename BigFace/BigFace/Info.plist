@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This permission allow you to capture &apos;BigFace&apos;</string>
+	<string>The TrueDepth API will be using for tracking face and making face bigger. the data will be only stored in your phone and will not be shared with others.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This permission allow you to save &apos;BigFace&apos; in your phone</string>
 	<key>UIUserInterfaceStyle</key>
