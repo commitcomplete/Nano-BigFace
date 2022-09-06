@@ -69,13 +69,12 @@ class ViewController: UIViewController {
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
         view.addSubview(makeCaptureButton())
-        view.addSubview(mosaicFilterButton)
-        view.addSubview(crystalFilterButton)
-        view.addSubview(convex1FilterButton)
-        view.addSubview(convex2FilterButton)
-        view.addSubview(circleFilterButton)
-        view.addSubview(noDistortFilterButton)
-        view.addSubview(distortFilterSelectButton)
+        addColorFilterButtons()
+        addDistortFilterButtons()
+        
+    }
+    
+    func addColorFilterButtons(){
         view.addSubview(redFilterButton)
         view.addSubview(yellowFilterButton)
         view.addSubview(greenFilterButton)
@@ -84,6 +83,17 @@ class ViewController: UIViewController {
         view.addSubview(noColorFilterButton)
         view.addSubview(colorFilterSelectButton)
     }
+    
+    func addDistortFilterButtons(){
+        view.addSubview(mosaicFilterButton)
+        view.addSubview(crystalFilterButton)
+        view.addSubview(convex1FilterButton)
+        view.addSubview(convex2FilterButton)
+        view.addSubview(circleFilterButton)
+        view.addSubview(noDistortFilterButton)
+        view.addSubview(distortFilterSelectButton)
+    }
+    
     
     // MARK: UIComponent  + Action생성
     // uicomponenet 생성 ------------------------------------------
@@ -642,7 +652,6 @@ extension ViewController : ARSCNViewDelegate{
         }
         //Updates the face geometry.
         faceGeometry.update(from: faceAnchor.geometry)
-        
         
         // MARK: emotion detection model - model deleted
 //        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:]).perform([VNCoreMLRequest(model: model) { [weak self] request, error in
