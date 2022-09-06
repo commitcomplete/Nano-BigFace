@@ -7,8 +7,8 @@
 [App store link](https://apps.apple.com/kr/app/big-face/id1642758195)
 
 Big-Face is a Face Filter.
-Automatically recognize faces and make it bigger.
-also offer a lot of color filters and distort filters.
+Automatically recognize faces and make it bigger.  
+Also offers a lot of color filters and distort filters.
 
 ## Features
 
