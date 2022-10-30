@@ -30,6 +30,9 @@ class ViewController: UIViewController {
     lazy var convexFilter = setConvex()
     lazy var convexFilterHeight = setConvexHeight()
     lazy var circularDistortionFilter = setCircularDistortion()
+    //----- 기본이외 추가 필터들
+    lazy var dotFilter = setDotFilter()
+    
     // MARK: button 생성
     // 칼라버튼
     lazy var colorFilterSelectButton = makeColorFilterSelectButton()
@@ -48,6 +51,8 @@ class ViewController: UIViewController {
     lazy var convex2FilterButton = makeDistortFilterButton(name: "Convex2")
     lazy var circleFilterButton = makeDistortFilterButton(name: "Circle")
     lazy var noDistortFilterButton = makeDistortFilterButton(name: "BigFace")
+    //----- 기본이외 추가 필터들
+    lazy var dotFilterButton = makeDistortFilterButton(name: "Dot")
     
     var screenSize = UIScreen.main.bounds.size
     var width = UIScreen.main.bounds.width
@@ -92,6 +97,8 @@ class ViewController: UIViewController {
         view.addSubview(circleFilterButton)
         view.addSubview(noDistortFilterButton)
         view.addSubview(distortFilterSelectButton)
+        //추가 필터들
+        view.addSubview(dotFilterButton)
     }
     
     
@@ -206,6 +213,8 @@ class ViewController: UIViewController {
                     self.convex2FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 290)
                     self.circleFilterButton.layer.opacity =  1.0
                     self.circleFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 350)
+                    self.dotFilterButton.layer.opacity =  1.0
+                    self.dotFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 410)
                 }){ _ in
                     
                     self.isDistortSelectOpen = true
@@ -281,6 +290,10 @@ class ViewController: UIViewController {
                 else if currentDistortFilter == "Circle"{
                     distortFilter = circularDistortionFilter
                 }
+                //추가 필터들
+                else if currentDistortFilter == "Dot"{
+                    distortFilter = dotFilter
+                }
                 
                 if button.backgroundColor == .red{
                     sceneView.scene.rootNode.filters = [redFilter,distortFilter]
@@ -354,6 +367,10 @@ class ViewController: UIViewController {
                     sceneView.scene.rootNode.filters = []
                     
                 }
+                //추가 필터들
+                else if button.title(for: .normal) == "Dot"{
+                    sceneView.scene.rootNode.filters = [dotFilter]
+                }
                 distortFilterSelectButton.setTitle(button.title(for: .normal)!, for: .normal)
                 currentDistortFilter = button.title(for: .normal)!
                 closeDistortFilters()
@@ -400,6 +417,10 @@ class ViewController: UIViewController {
                 else if button.title(for: .normal) == "BigFace"{
                     sceneView.scene.rootNode.filters = [colorFilter]
                 }
+                //추가 필터들
+                else if button.title(for: .normal) == "Dot"{
+                    sceneView.scene.rootNode.filters = [colorFilter,dotFilter]
+                }
                 distortFilterSelectButton.setTitle(button.title(for: .normal)!, for: .normal)
                 currentDistortFilter = button.title(for: .normal)!
                 closeDistortFilters()
@@ -441,6 +462,9 @@ class ViewController: UIViewController {
             self.convex2FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
             self.circleFilterButton.layer.opacity = 0.0
             self.circleFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
+            //추가 필터들
+            self.dotFilterButton.layer.opacity = 0.0
+            self.dotFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
         }) { _ in
             // Once animation completed, remove it from view.
             self.isDistortSelectOpen = false
@@ -611,6 +635,12 @@ class ViewController: UIViewController {
         let f = CIFilter.pinchDistortion()
         f.radius = 300
         f.center = CGPoint(x: 500, y: 1000)
+        return f
+    }
+    
+    func setDotFilter() -> CIFilter{
+        let f = CIFilter.dotScreen()
+        f.angle = .greatestFiniteMagnitude
         return f
     }
 }
