@@ -15,7 +15,7 @@ Also offers a lot of color filters and distort filters.
 - Automatical face recognition
 - Making face bigger
 - Color filters - red, yellow, green, blue, purple
-- Distort filters - Mosaic, Crystal, Convex1, Convex2, Circle
+- Distort filters - Mosaic, Crystal, Convex1, Convex2, Circle, Dot
 - Overlap filters between color filters and distort filters
 - Capture Image
 
