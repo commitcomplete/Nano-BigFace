@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private let sceneView = ARSCNView(frame: UIScreen.main.bounds)
     //The CoreML model we use for emotion classification.
     // MARK: emotion detect model deleted
-//    private let model = try! VNCoreMLModel(for: CNNEmotions().model)
+    //    private let model = try! VNCoreMLModel(for: CNNEmotions().model)
     // MARK: filter 생성
     // 메모리를 위한 필터생성
     // 색상필터
@@ -162,7 +162,7 @@ class ViewController: UIViewController {
                     self.purpleFilterButton.layer.opacity = 0.6
                     self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 30 - 350)
                 }) { _ in
-                  
+                    
                     self.isColorSelectOpen = true
                 }
             }
@@ -184,9 +184,9 @@ class ViewController: UIViewController {
         button.setTitle("BigFace", for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(onClickDistortFilterSelectButton(_:)), for: .touchUpInside)
-//        button.layer.cornerRadius = 30
-//        button.layer.borderWidth = 2
-//        button.layer.borderColor = UIColor.white.cgColor
+        //        button.layer.cornerRadius = 30
+        //        button.layer.borderWidth = 2
+        //        button.layer.borderColor = UIColor.white.cgColor
         return button
     }
     
@@ -195,22 +195,22 @@ class ViewController: UIViewController {
             if !isDistortSelectOpen{
                 UIView.animate(withDuration: 0.4, animations: {
                     self.noDistortFilterButton.layer.opacity = 1.0
-                self.noDistortFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 30 - 50)
-                self.mosaicFilterButton.layer.opacity =  1.0
-                self.mosaicFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 110)
-                self.crystalFilterButton.layer.opacity =  1.0
-                self.crystalFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 170)
-                self.convex1FilterButton.layer.opacity =  1.0
-                self.convex1FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 230)
-                self.convex2FilterButton.layer.opacity =  1.0
-                self.convex2FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 290)
-                self.circleFilterButton.layer.opacity =  1.0
-                self.circleFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 350)
+                    self.noDistortFilterButton.layer.position = CGPoint(x: self.width * 0.8 , y: self.height * 0.9 - 30 - 50)
+                    self.mosaicFilterButton.layer.opacity =  1.0
+                    self.mosaicFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 110)
+                    self.crystalFilterButton.layer.opacity =  1.0
+                    self.crystalFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 170)
+                    self.convex1FilterButton.layer.opacity =  1.0
+                    self.convex1FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 230)
+                    self.convex2FilterButton.layer.opacity =  1.0
+                    self.convex2FilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 290)
+                    self.circleFilterButton.layer.opacity =  1.0
+                    self.circleFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 30 - 350)
                 }){ _ in
                     
                     self.isDistortSelectOpen = true
                 }
-                               
+                
             }
             else{
                 closeDistortFilters()
@@ -241,29 +241,29 @@ class ViewController: UIViewController {
         if let button = sender as? UIButton {
             
             if currentDistortFilter == "BigFace"{
-            
-            if button.backgroundColor == .red{
-                sceneView.scene.rootNode.filters = [redFilter]
-            }
-            else if button.backgroundColor == .yellow{
-                sceneView.scene.rootNode.filters = [yellowFilter]
-            }
-            else if button.backgroundColor == .green{
-                sceneView.scene.rootNode.filters = [greenFilter]
-            }
-            else if button.backgroundColor == .blue{
-                sceneView.scene.rootNode.filters = [blueFilter]
-            }
-            else if button.backgroundColor == .purple{
-                sceneView.scene.rootNode.filters = [purpleFilter]
-            }
-            else if button.backgroundColor == .clear{
-                sceneView.scene.rootNode.filters = []
-            }
-            colorFilterSelectButton.backgroundColor = button.backgroundColor
-            currentColorFilter = button.backgroundColor!
-            closeColorFilters()
-            
+                
+                if button.backgroundColor == .red{
+                    sceneView.scene.rootNode.filters = [redFilter]
+                }
+                else if button.backgroundColor == .yellow{
+                    sceneView.scene.rootNode.filters = [yellowFilter]
+                }
+                else if button.backgroundColor == .green{
+                    sceneView.scene.rootNode.filters = [greenFilter]
+                }
+                else if button.backgroundColor == .blue{
+                    sceneView.scene.rootNode.filters = [blueFilter]
+                }
+                else if button.backgroundColor == .purple{
+                    sceneView.scene.rootNode.filters = [purpleFilter]
+                }
+                else if button.backgroundColor == .clear{
+                    sceneView.scene.rootNode.filters = []
+                }
+                colorFilterSelectButton.backgroundColor = button.backgroundColor
+                currentColorFilter = button.backgroundColor!
+                closeColorFilters()
+                
             }else{
                 var distortFilter = CIFilter()
                 if currentDistortFilter == "Mosaic"{
@@ -330,35 +330,35 @@ class ViewController: UIViewController {
     @objc internal func onClickDistortFilterButton(_ sender: Any) {
         if let button = sender as? UIButton {
             if currentColorFilter == UIColor.clear{
-            if button.title(for: .normal) == "Mosaic" {
-                sceneView.scene.rootNode.filters = [mosaicFilter]
+                if button.title(for: .normal) == "Mosaic" {
+                    sceneView.scene.rootNode.filters = [mosaicFilter]
+                    
+                }
+                else if button.title(for: .normal) == "Crystal"{
+                    sceneView.scene.rootNode.filters = [crystalFilter]
+                    
+                }
+                else if button.title(for: .normal) == "Convex1"{
+                    sceneView.scene.rootNode.filters = [convexFilter]
+                    
+                }
+                else if button.title(for: .normal) == "Convex2"{
+                    sceneView.scene.rootNode.filters = [convexFilterHeight]
+                    
+                }
+                else if button.title(for: .normal) == "Circle"{
+                    sceneView.scene.rootNode.filters = [circularDistortionFilter]
+                    
+                }
+                else if button.title(for: .normal) == "BigFace"{
+                    sceneView.scene.rootNode.filters = []
+                    
+                }
+                distortFilterSelectButton.setTitle(button.title(for: .normal)!, for: .normal)
+                currentDistortFilter = button.title(for: .normal)!
+                closeDistortFilters()
                 
             }
-            else if button.title(for: .normal) == "Crystal"{
-                sceneView.scene.rootNode.filters = [crystalFilter]
-                
-            }
-            else if button.title(for: .normal) == "Convex1"{
-                sceneView.scene.rootNode.filters = [convexFilter]
-                
-            }
-            else if button.title(for: .normal) == "Convex2"{
-                sceneView.scene.rootNode.filters = [convexFilterHeight]
-                
-            }
-            else if button.title(for: .normal) == "Circle"{
-                sceneView.scene.rootNode.filters = [circularDistortionFilter]
-                
-            }
-            else if button.title(for: .normal) == "BigFace"{
-                sceneView.scene.rootNode.filters = []
-                
-            }
-            distortFilterSelectButton.setTitle(button.title(for: .normal)!, for: .normal)
-            currentDistortFilter = button.title(for: .normal)!
-            closeDistortFilters()
-            
-        }
             else{
                 var colorFilter = CIFilter()
                 if currentColorFilter == UIColor.red{
@@ -575,11 +575,12 @@ class ViewController: UIViewController {
         UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
     }
     
-    // ui image 공유
+    //MARK: 사진공유 기능 - 지금은 MVP에서 빠짐
     func sharePicture(img: UIImage) {
         let av = UIActivityViewController(activityItems: [img], applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }
+    
     // MARK: setup 특이 필터
     func setCrystal() -> CIFilter{
         let f = CIFilter.crystallize()
@@ -654,15 +655,15 @@ extension ViewController : ARSCNViewDelegate{
         faceGeometry.update(from: faceAnchor.geometry)
         
         // MARK: emotion detection model - model deleted
-//        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:]).perform([VNCoreMLRequest(model: model) { [weak self] request, error in
-//            //Here we get the first result of the Classification Observation result.
-//            guard let firstResult = (request.results as? [VNClassificationObservation])?.first else { return }
-//            DispatchQueue.main.async { [self] in
-//                if firstResult.confidence > 0.92 {
-//
-//                }
-//            }
-//        }])
+        //        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:]).perform([VNCoreMLRequest(model: model) { [weak self] request, error in
+        //            //Here we get the first result of the Classification Observation result.
+        //            guard let firstResult = (request.results as? [VNClassificationObservation])?.first else { return }
+        //            DispatchQueue.main.async { [self] in
+        //                if firstResult.confidence > 0.92 {
+        //
+        //                }
+        //            }
+        //        }])
     }
     
 }

@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Convenience extensions for system types.
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ Convenience extensions for system types.
+ */
 
 import ARKit
 import SceneKit
@@ -55,8 +55,8 @@ extension SCNMaterial {
 
 extension UUID {
     /**
-    Pseudo-randomly return one of the 14 fixed standard colors, based on this UUID.
-    */
+     Pseudo-randomly return one of the 14 fixed standard colors, based on this UUID.
+     */
     func toRandomColor() -> UIColor {
         let colors: [UIColor] = [.red, .green, .blue, .yellow, .magenta, .cyan, .purple,
                                  .orange, .brown, .lightGray, .gray, .darkGray, .black, .white]

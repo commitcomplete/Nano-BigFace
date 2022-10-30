@@ -66,20 +66,28 @@
 		782134DF28BDF8DB002ED29A /* BigFace */ = {
 			isa = PBXGroup;
 			children = (
+				78A6EA39290E9BAA00AF02C0 /* Textures */,
 				782134E028BDF8DB002ED29A /* AppDelegate.swift */,
 				782134E228BDF8DB002ED29A /* SceneDelegate.swift */,
 				782134E428BDF8DB002ED29A /* ViewController.swift */,
 				782134FA28BE2AAF002ED29A /* Utilities.swift */,
-				782134F628BE25CD002ED29A /* VideoTexturedFace.shader */,
-				782134F728BE25CD002ED29A /* VideoTexturedFace.swift */,
-				782134FC28BE2CBD002ED29A /* TexturedFace.swift */,
-				782134FE28BE2CD4002ED29A /* VirtualContent.swift */,
 				782134E628BDF8DB002ED29A /* Main.storyboard */,
 				782134E928BDF8DC002ED29A /* Assets.xcassets */,
 				782134EB28BDF8DC002ED29A /* LaunchScreen.storyboard */,
 				782134EE28BDF8DC002ED29A /* Info.plist */,
 			);
 			path = BigFace;
+			sourceTree = "<group>";
+		};
+		78A6EA39290E9BAA00AF02C0 /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				782134F628BE25CD002ED29A /* VideoTexturedFace.shader */,
+				782134F728BE25CD002ED29A /* VideoTexturedFace.swift */,
+				782134FC28BE2CBD002ED29A /* TexturedFace.swift */,
+				782134FE28BE2CD4002ED29A /* VirtualContent.swift */,
+			);
+			path = Textures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
