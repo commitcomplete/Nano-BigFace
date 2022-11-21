@@ -102,42 +102,6 @@ class ViewController: UIViewController {
         view.addSubview(dotFilterButton)
     }
     
-    // MARK: - Photos
-    //------------------- 이미지 저장, 공유 ---------------------
-    // 사진 찍을때 깜빡임 효과
-    func showScreenshotEffect() {
-        let snapshotView = UIView()
-        snapshotView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(snapshotView)
-        // Activate full screen constraints
-        let constraints:[NSLayoutConstraint] = [
-            snapshotView.topAnchor.constraint(equalTo: view.topAnchor),
-            snapshotView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            snapshotView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            snapshotView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
-        // White because it's the brightest color
-        snapshotView.backgroundColor = UIColor.black
-        // Animate the alpha to 0 to simulate flash
-        UIView.animate(withDuration: 0.2, animations: {
-            snapshotView.alpha = 0
-        }) { _ in
-            // Once animation completed, remove it from view.
-            snapshotView.removeFromSuperview()
-        }
-    }
-    // ui image 저장
-    func saveInPhoto(img: UIImage) {
-        UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-    }
-    
-    //MARK: 사진공유 기능 - 지금은 MVP에서 빠짐
-    func sharePicture(img: UIImage) {
-        let av = UIActivityViewController(activityItems: [img], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
-    }
-    
 }
 
 

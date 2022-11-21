@@ -21,6 +21,7 @@
 		78FEE8A0292BED70007B67BD /* ViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FEE89F292BED70007B67BD /* ViewController+ARSCNViewDelegate.swift */; };
 		78FEE8A2292BF01B007B67BD /* ViewController+ComponentMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FEE8A1292BF01B007B67BD /* ViewController+ComponentMake.swift */; };
 		78FEE8A4292BF1F3007B67BD /* ViewController+FilterMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FEE8A3292BF1F3007B67BD /* ViewController+FilterMake.swift */; };
+		78FEE8A6292BF2BA007B67BD /* ViewController+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FEE8A5292BF2BA007B67BD /* ViewController+Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		78FEE89F292BED70007B67BD /* ViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
 		78FEE8A1292BF01B007B67BD /* ViewController+ComponentMake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ComponentMake.swift"; sourceTree = "<group>"; };
 		78FEE8A3292BF1F3007B67BD /* ViewController+FilterMake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+FilterMake.swift"; sourceTree = "<group>"; };
+		78FEE8A5292BF2BA007B67BD /* ViewController+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Photo.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				782134E028BDF8DB002ED29A /* AppDelegate.swift */,
 				782134E228BDF8DB002ED29A /* SceneDelegate.swift */,
 				782134E428BDF8DB002ED29A /* ViewController.swift */,
+				78FEE8A5292BF2BA007B67BD /* ViewController+Photo.swift */,
 				78FEE8A3292BF1F3007B67BD /* ViewController+FilterMake.swift */,
 				782134FA28BE2AAF002ED29A /* Utilities.swift */,
 				782134E628BDF8DB002ED29A /* Main.storyboard */,
@@ -181,6 +184,7 @@
 				78FEE8A0292BED70007B67BD /* ViewController+ARSCNViewDelegate.swift in Sources */,
 				782134FD28BE2CBD002ED29A /* TexturedFace.swift in Sources */,
 				782134E328BDF8DB002ED29A /* SceneDelegate.swift in Sources */,
+				78FEE8A6292BF2BA007B67BD /* ViewController+Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
