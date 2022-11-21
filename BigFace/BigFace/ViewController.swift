@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     // MARK: emotion detect model deleted
     //    private let model = try! VNCoreMLModel(for: CNNEmotions().model)
     // MARK: filter 생성
-    // 메모리를 위한 필터생성
+    // 메모리를 위한 필터생성 - 매번 필터를 생성해서 씌우고 변경하면 낭비!
     // 색상필터
     lazy var redFilter = self.filter(color: 1.0)
     lazy var yellowFilter = self.filter(color: 0.1)

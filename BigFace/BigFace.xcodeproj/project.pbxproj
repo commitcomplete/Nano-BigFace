@@ -78,15 +78,15 @@
 				782134E028BDF8DB002ED29A /* AppDelegate.swift */,
 				782134E228BDF8DB002ED29A /* SceneDelegate.swift */,
 				782134E428BDF8DB002ED29A /* ViewController.swift */,
-				78FEE8A5292BF2BA007B67BD /* ViewController+Photo.swift */,
+				78FEE89F292BED70007B67BD /* ViewController+ARSCNViewDelegate.swift */,
+				78FEE8A1292BF01B007B67BD /* ViewController+ComponentMake.swift */,
 				78FEE8A3292BF1F3007B67BD /* ViewController+FilterMake.swift */,
+				78FEE8A5292BF2BA007B67BD /* ViewController+Photo.swift */,
 				782134FA28BE2AAF002ED29A /* Utilities.swift */,
 				782134E628BDF8DB002ED29A /* Main.storyboard */,
 				782134E928BDF8DC002ED29A /* Assets.xcassets */,
 				782134EB28BDF8DC002ED29A /* LaunchScreen.storyboard */,
 				782134EE28BDF8DC002ED29A /* Info.plist */,
-				78FEE89F292BED70007B67BD /* ViewController+ARSCNViewDelegate.swift */,
-				78FEE8A1292BF01B007B67BD /* ViewController+ComponentMake.swift */,
 			);
 			path = BigFace;
 			sourceTree = "<group>";
