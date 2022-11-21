@@ -13,15 +13,16 @@ extension ViewController{
     // 칼라필터 생성 ---------------------------------------
     func filter(color : Float) -> CIFilter {
         let size = 64
-        let defaultHue: Float = 0 //default color of blue truck
-        let hueRange: Float = 60 //hue angle that we want to replace
+        let defaultHue: Float = 0
+        let hueRange: Float = 60
         let centerHueAngle: Float = defaultHue/360.0
         var destCenterHueAngle: Float = color
         let minHueAngle: Float = (defaultHue - hueRange/2.0) / 360
         let maxHueAngle: Float = (defaultHue + hueRange/2.0) / 360
         let hueAdjustment = centerHueAngle - destCenterHueAngle
         if destCenterHueAngle == 0  {
-            destCenterHueAngle = 1 //force red if slider angle is 0
+            //angle이 0이면 빨강
+            destCenterHueAngle = 1
         }
         var cubeData = [Float](repeating: 0, count: (size * size * size * 4))
         var offset = 0
@@ -36,7 +37,7 @@ extension ViewController{
                     var hsv = RGBtoHSV(z, g: y, b: x)
                     
                     if (hsv.h > minHueAngle && hsv.h < maxHueAngle) {
-                        hsv.h = destCenterHueAngle == 1 ? 0 : hsv.h - hueAdjustment //force red if slider angle is 360
+                        hsv.h = destCenterHueAngle == 1 ? 0 : hsv.h - hueAdjustment 
                         let newRgb = HSVtoRGB(hsv.h, s:hsv.s, v:hsv.v)
                         
                         cubeData[offset] = newRgb.r

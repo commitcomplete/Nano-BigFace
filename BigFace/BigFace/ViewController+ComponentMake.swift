@@ -99,9 +99,6 @@ extension ViewController{
         button.setTitle("BigFace", for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(onClickDistortFilterSelectButton(_:)), for: .touchUpInside)
-        //        button.layer.cornerRadius = 30
-        //        button.layer.borderWidth = 2
-        //        button.layer.borderColor = UIColor.white.cgColor
         return button
     }
     
@@ -351,7 +348,6 @@ extension ViewController{
             self.purpleFilterButton.layer.opacity = 0.0
             self.purpleFilterButton.layer.position = CGPoint(x: self.width * 0.2, y: self.height * 0.9 - 25)
         }) { _ in
-            // Once animation completed, remove it from view.
             self.isColorSelectOpen = false
         }
     }
@@ -374,7 +370,6 @@ extension ViewController{
             self.dotFilterButton.layer.opacity = 0.0
             self.dotFilterButton.layer.position = CGPoint(x: self.width * 0.8, y: self.height * 0.9 - 25)
         }) { _ in
-            // Once animation completed, remove it from view.
             self.isDistortSelectOpen = false
         }
     }

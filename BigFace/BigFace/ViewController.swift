@@ -67,18 +67,25 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setUpDelegate()
+        setUpLayout()
+    }
+    
+    func setUpDelegate(){
         guard ARFaceTrackingConfiguration.isSupported else { return }
         view.addSubview(sceneView)
         sceneView.delegate = self
         let ARFace: ARFaceTrackingConfiguration = ARFaceTrackingConfiguration();
         ARFace.maximumNumberOfTrackedFaces = 5
         sceneView.session.run(ARFace, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    func setUpLayout(){
         view.addSubview(makeCaptureButton())
         addColorFilterButtons()
         addDistortFilterButtons()
-        
     }
+    
     
     func addColorFilterButtons(){
         view.addSubview(redFilterButton)
